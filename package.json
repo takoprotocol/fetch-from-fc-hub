@@ -1,0 +1,16 @@
+{
+  "name": "fetch-from-hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hub.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^4.2.1",
+    "dotenv": "^16.4.5"
+  }
+}

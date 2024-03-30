@@ -1,14 +1,14 @@
 {
-  "name": "fetch-from-hub",
+  "name": "fetch-from-fc-hub",
   "version": "1.0.0",
-  "description": "",
+  "description": "Interact with farcaster hub HTTP API",
   "main": "hub.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node hub.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Tako Team",
+  "license": "MIT",
   "dependencies": {
     "@inquirer/prompts": "^4.2.1",
     "dotenv": "^16.4.5"

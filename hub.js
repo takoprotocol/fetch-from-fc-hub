@@ -36,6 +36,9 @@ const apis = {
         }
     },
 
+    // ******** Message API ********
+    validateMessage: () => `${ fcDomain }/validateMessage`,
+
     // ******** Reaction API ********
     reactionByFid: (fid, reactionType, targetFid, targetHash) => `${ fcDomain }/reactionById?fid=${ fid }&reaction_type=${ reactionType }&target_fid=${ targetFid }&target_hash=${ targetHash }`,
 
@@ -218,6 +221,30 @@ const castsByParent = async () => {
     }
 }
 
+// ******** Message API ********
+const validateMessage = async () => {
+    const protobuf = await input({ message: 'message encoded protobuf: ' })
+
+    const binaryData =  new Uint8Array(
+        protobuf.match(/.{1,2}/g).map(
+            (byte) => parseInt(byte, 16)
+        )
+    )
+
+    const response = await fetch(
+        apis.validateMessage(),
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: binaryData
+        }
+    )
+
+    const result = await response.json()
+    log(result)
+}
+
+
 // ******** Reaction API ********
 const reactionByFid = async () => {
     const fid = await input({ message: 'fid: ' })
@@ -260,14 +287,26 @@ const allChannels = async () => {
     }
 
     const call = [
+        // ******** Info API ********
         hubInfo,
+
+        // ******** User API ********
         userDataByFid,
+        userNameProofByName,
+        linkByFid,
+
+        // ******** Cast API ********
         castByFid,
         castsByFid,
         castsByParent,
-        userNameProofByName,
-        linkByFid,
+
+        // ******** Message API ********
+        validateMessage,
+
+        // ******** Reaction API ********
         reactionByFid,
+
+        // ******** Channel API ********
         allChannels,
     ]
 
